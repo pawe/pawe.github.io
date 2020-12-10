@@ -1,0 +1,97 @@
+<!doctype html>
+<html lang="de">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+    <link rel="manifest" href="/site.webmanifest">
+    <title>Liebt Paul Dora?</title>
+    <style>
+      html {
+        margin: 0;
+        width: 100%;
+        height: 100%;
+        background: linear-gradient(135deg, rgb(0, 55, 70) 0%, rgb(0, 46, 173) 15%, rgb(226,57,57) 54%, rgb(240,93,215) 85%, rgba(200,89,230)); 
+      }
+      #container {
+        position: absolute;
+        min-width: 236px;
+        left: 50%;
+        top: 50%;
+        -webkit-transform: translate(-50%, -50%);
+        transform: translate(-50%, -50%);
+        background-color: rgba(17, 17, 26, 0.425);
+        padding: 0.8em 0.6em 0.8em 0.6em;
+        color: white;
+        border-radius: 0.8em;
+        text-align: center;
+      }
+      #answer {
+        font-size: 1.8em;
+        line-height: 1.5em;
+        
+      }
+      .emoji {
+        font-size: 121%;
+      }
+      #comment {
+        font-size: 0.7em;
+      }
+      h1 {
+        color: rgba(255, 250, 233, 0.568);
+        font-family: "Times New Roman" Times serif;
+        font-size: 1.2em;
+        font-weight: 100;
+        
+      }
+    </style>
+  </head>
+  <body>
+    <h1>Liebt Paul Dora?</h1>
+    <div>
+      <div id="container">
+        <span id="answer">Ja! <span class="emoji">❤️</span></span>
+        <div id="comment"></div>
+      </div>
+    </div>
+    <script>
+      let visitCount = (Number.parseInt(localStorage.getItem('count')) || 0) + 1;
+      localStorage.setItem('count', visitCount);
+      
+      // it's alwas some kind of yes!
+      const yesses = ["Jup!", "Ja!", "Igen!", "Ur!"];
+      const emojis = ["💖", "💕", "💞", "💝", "💘", "💟", "♥️", "❤️", "😍", "🥰", "😘"]
+
+      // it's a bit of an afterthougt
+      const random =  { toString() { 
+        let yes = yesses[Math.floor(Math.random() * yesses.length)];
+        let emoji = emojis[Math.floor(Math.random() * emojis.length)];
+        return `${yes} <span class='emoji'>${emoji}</span>`;
+      }};
+
+      const messages = [
+        { from: 5, to: 9, msg: "Schön, dass du dich gleich öfters erkundigst! 😘" },
+        { from: 10, to: 13, msg: "Du kannst mich natürlich auch persönlich Fragen!" },
+      ];
+    
+      // its inclusive! and upper is optinal
+      function inRange(value, lower, upper) {
+        if (!upper) { upper = lower; }
+        return lower <= value && value <= upper;
+      }
+
+      let answer = window.document.getElementById('answer');
+      answer.innerHTML = random;
+
+      let comment = window.document.getElementById('comment');
+
+      let message = messages.find(message => inRange(visitCount, message.from, message.to));
+
+      if (message) {
+        comment.innerHTML = message.msg.toString();
+      }
+    </script>
+  </body>
+</html>
