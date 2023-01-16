@@ -108,5 +108,18 @@
         comment.innerHTML = message.msg.toString();
       }
     </script>
+    <script src="https://unpkg.com/emojisplosion/lib/global.js"></script>
+    <script>
+      function todayIsTheDay() {
+        const today = new Date();
+        return today.getDate() == 16 && today.getMonth() == 0;
+      }
+      
+      if (todayIsTheDay()) {
+        emojisplosions({
+          emojis: ["💖", "💕", "💗", "💓", "💝", "💘", "💟", "♥️", "❤️", "😍", "🥰", "😘"],
+        });
+      }
+    </script>
   </body>
 </html>
